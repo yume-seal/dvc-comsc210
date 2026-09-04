@@ -49,3 +49,17 @@ char peek(char* list, short top) {
     } else
         return '\0';
 }
+
+class MyQueue {
+    private:
+        char* list;
+        unsigned short front;
+        unsigned short back;
+        unsigned short max;
+    public:
+        MyQueue(unsigned short s);
+        ~MyQueue();
+        short enqueue(char a);
+        short dequeue();
+        char first();
+};

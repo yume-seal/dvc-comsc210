@@ -63,3 +63,13 @@ class MyQueue {
         short dequeue();
         char first();
 };
+
+MyQueue::MyQueue(unsigned short s) {
+    max = s;
+    front = 0;
+    back = 0;
+}
+
+MyQueue::~MyQueue() {
+    delete[]list;
+}

@@ -12,7 +12,7 @@ class MyStack {
         MyStack(unsigned short s);
         ~MyStack();
 
-        short push(char*list, short top, unsigned short max, char a);
+        short push(char a);
         short pop();
         char peek();
     };
@@ -26,7 +26,7 @@ MyStack::~MyStack() {
     delete[]list;
 }
 
-short MyStack::push(char* list, short top, unsigned short max, char a) {
+short MyStack::push(char a) {
     if(top < max - 1) {
         top = top + 1;
         list[top] = a;
@@ -35,7 +35,7 @@ short MyStack::push(char* list, short top, unsigned short max, char a) {
         return -1;
 }
 
-short pop(char* list, short top) {
+short MyStack::pop() {
     if(top > -1) {
         top = top -1;
         return 0;
@@ -43,7 +43,7 @@ short pop(char* list, short top) {
         return -1;
 }
 
-char peek(char* list, short top) {
+char MyStack::peek() {
     if(top > -1) {
         return list[top];
     } else
@@ -59,8 +59,8 @@ class MyQueue {
     public:
         MyQueue(unsigned short s);
         ~MyQueue();
-        short enqueue(char* list, short front, short back, unsigned short max, char a);
-        short dequeue(char* list, short front, short back, unsigned short max, char a);
+        short enqueue(char a);
+        short dequeue();
         char first();
 };
 
@@ -74,7 +74,7 @@ MyQueue::~MyQueue() {
     delete[]list;
 }
 
-short enqueue(char* list, short front, short back, unsigned short max, char a) {
+short MyQueue::enqueue(char a) {
     if(front != (back + 1) % max) {
         list[back] = a;
         back = (back + 1) % max;
@@ -83,7 +83,7 @@ short enqueue(char* list, short front, short back, unsigned short max, char a) {
         return -1;
 }
 
-short dequeue(char* list, short front, short back, unsigned short max) {
+short MyQueue::dequeue() {
     if(front != (back + 1) % max) {
         front = (front + 1) % max;
         return 0;
@@ -91,9 +91,18 @@ short dequeue(char* list, short front, short back, unsigned short max) {
         return -1;
 }
 
-char first(char* list, short front, short back) {
+char MyQueue::first() {
     if (front != back) {
         return list[front];
     } else
         return '\0';
+}
+
+int main() {
+    std::string input;
+
+    std::cout << "Enter a string: ";
+    std::getline(std::cin, input);
+    MyStack stack(input.length());
+    return 0;
 }

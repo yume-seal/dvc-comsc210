@@ -45,7 +45,7 @@ short pop(char* list, short top) {
 
 char peek(char* list, short top) {
     if(top > -1) {
-        return(list[top]);
+        return list[top];
     } else
         return '\0';
 }
@@ -89,4 +89,11 @@ short dequeue(char* list, short front, short back, unsigned short max) {
         return 0;
     } else
         return -1;
+}
+
+char first(char* list, short front, short back) {
+    if (front != back) {
+        return list[front];
+    } else
+        return '\0';
 }

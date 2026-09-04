@@ -104,5 +104,17 @@ int main() {
     std::cout << "Enter a string: ";
     std::getline(std::cin, input);
     MyStack stack(input.length());
+    
+    for(char c : input) {
+        stack.push(c);
+    }
+
+    for(int i = 0; i < input.length(); i++) {
+        if(stack.peek() != '\0') {
+            std::cout << stack.peek();
+        }
+        stack.pop();
+    }
+    std::cout << std::endl;
     return 0;
 }

@@ -42,3 +42,10 @@ short pop(char* list, short top) {
     } else
         return -1;
 }
+
+char peek(char* list, short top) {
+    if(top > -1) {
+        return(list[top]);
+    } else
+        return '\0';
+}

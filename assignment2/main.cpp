@@ -34,3 +34,11 @@ short MyStack::push(char* list, short top, unsigned short max, char a) {
     } else
         return -1;
 }
+
+short pop(char* list, short top) {
+    if(top > -1) {
+        top = top -1;
+        return 0;
+    } else
+        return -1;
+}

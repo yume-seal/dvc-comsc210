@@ -65,9 +65,10 @@ class MyQueue {
 };
 
 MyQueue::MyQueue(unsigned short s) {
-    max = s;
+    max = s + 1;
     front = 0;
     back = 0;
+    list = new char[max];
 }
 
 MyQueue::~MyQueue() {
@@ -75,16 +76,17 @@ MyQueue::~MyQueue() {
 }
 
 short MyQueue::enqueue(char a) {
-    if(front != (back + 1) % max) {
+    if((back + 1) % max == front) {
+        return -1;
+    } else {
         list[back] = a;
         back = (back + 1) % max;
         return 0;
-    } else 
-        return -1;
+    }
 }
 
 short MyQueue::dequeue() {
-    if(front != (back + 1) % max) {
+    if(front != back) {
         front = (front + 1) % max;
         return 0;
     } else
@@ -103,18 +105,32 @@ int main() {
 
     std::cout << "Enter a string: ";
     std::getline(std::cin, input);
+    while (!input.empty() && (input.back() == '\r' || input.back() == '\n')) {
+        input.pop_back();
+    }
+    
     MyStack stack(input.length());
+    MyQueue queue(input.length());
     
     for(char c : input) {
         stack.push(c);
+        queue.enqueue(c);
     }
 
-    for(int i = 0; i < input.length(); i++) {
+    std::cout << "Stack contents: ";
+    for(size_t i = 0; i < input.length(); i++) {
         if(stack.peek() != '\0') {
             std::cout << stack.peek();
         }
         stack.pop();
     }
     std::cout << std::endl;
+    std::cout << "Queue contents: ";
+    for(size_t i = 0; i < input.length(); i++) {
+        char c = queue.first();
+        std::cout << c;
+        queue.dequeue();
+    }
+    std::cout << std::endl << "Goodbye!\n";
     return 0;
 }

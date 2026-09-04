@@ -59,7 +59,7 @@ class MyQueue {
     public:
         MyQueue(unsigned short s);
         ~MyQueue();
-        short enqueue(char a);
+        short enqueue(char* list, short front, short back, unsigned short max, char a);
         short dequeue();
         char first();
 };
@@ -72,4 +72,12 @@ MyQueue::MyQueue(unsigned short s) {
 
 MyQueue::~MyQueue() {
     delete[]list;
+}
+
+short enqueue(char* list, short front, short back, unsigned short max, char a) {
+    if(front != (back + 1) % max) {
+        list[back] = a;
+        back = (back + 1) % max;
+        return 0;
+    } else return -1;
 }

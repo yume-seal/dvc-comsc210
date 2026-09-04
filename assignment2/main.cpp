@@ -60,7 +60,7 @@ class MyQueue {
         MyQueue(unsigned short s);
         ~MyQueue();
         short enqueue(char* list, short front, short back, unsigned short max, char a);
-        short dequeue();
+        short dequeue(char* list, short front, short back, unsigned short max, char a);
         char first();
 };
 
@@ -79,5 +79,14 @@ short enqueue(char* list, short front, short back, unsigned short max, char a) {
         list[back] = a;
         back = (back + 1) % max;
         return 0;
-    } else return -1;
+    } else 
+        return -1;
+}
+
+short dequeue(char* list, short front, short back, unsigned short max) {
+    if(front != (back + 1) % max) {
+        front = (front + 1) % max;
+        return 0;
+    } else
+        return -1;
 }

@@ -28,11 +28,17 @@ bool MyList::isEmpty(Node* head) {
         return false;
     }
 }
-/*
-int MyList::getSize() const {
-    return size;
-}
 
+int short MyList::getSize() {
+    int count = 0;
+    Node* temp = head;
+    while(temp != nullptr) {
+        temp = temp->next;
+        count++;
+    }
+    return count;
+}
+/*
 int MyList::add(std::string song) {
     if (isFull()) {
         return -1;

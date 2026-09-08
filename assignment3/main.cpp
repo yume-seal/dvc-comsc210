@@ -11,16 +11,16 @@ class MyList {
         Node* head = nullptr;
     public:
         ~MyList();
-        bool isEmpty(Node* head);
-        int short getSize();
-        int short add(std::string song);
-        int short find(std::string song);
-        int short remove(std::string song);
+        bool isEmpty();
+        short getSize();
+        short add(std::string song);
+        short find(std::string song);
+        short remove(std::string song);
         void clear();
         std::string print();
 };
 
-bool MyList::isEmpty(Node* head) {
+bool MyList::isEmpty() {
     if(head == nullptr) {
         return true;
     }
@@ -29,7 +29,7 @@ bool MyList::isEmpty(Node* head) {
     }
 }
 
-int short MyList::getSize() {
+short MyList::getSize() {
     int count = 0;
     Node* temp = head;
     while(temp != nullptr) {
@@ -38,18 +38,27 @@ int short MyList::getSize() {
     }
     return count;
 }
-/*
-int MyList::add(std::string song) {
-    if (isFull()) {
+
+short MyList::add(std::string song) {
+    Node* n = new (std::nothrow) Node;
+    if(n == nullptr) {
         return -1;
     }
-    else {
-        playlist[size] = song;
-        size = size + 1;
-        return 0;
+    n->songTitle = song;
+    n->next = nullptr;
+    if(isEmpty()) {
+        head =n;
     }
+    else {
+        Node* p = head;
+        while(p->next != nullptr) {
+            p = p->next;
+        }
+        p->next = n;
+    }
+    return 0;
 }
-
+/*
 std::string MyList::get(int songNumber) const {
     if (songNumber < 0 || songNumber >= size) {
         return "";

@@ -19,30 +19,16 @@ class MyList {
         void clear();
         std::string print();
 };
+
+bool MyList::isEmpty(Node* head) {
+    if(head == nullptr) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 /*
-
-MyList::~MyList() {
-    delete[]playlist;
-}
-
-bool MyList::isFull() const { 
-    if (size == max) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-bool MyList::isEmpty() const {
-    if (size == 0) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
 int MyList::getSize() const {
     return size;
 }
@@ -77,6 +63,10 @@ int MyList::remove(std::string song) {
     }
 
     return -1;
+}
+
+MyList::~MyList() {
+    clear();
 }
 */
 int main() {

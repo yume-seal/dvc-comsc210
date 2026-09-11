@@ -47,7 +47,7 @@ short MyList::add(std::string song) {
     n->songTitle = song;
     n->next = nullptr;
     if(isEmpty()) {
-        head =n;
+        head = n;
     }
     else {
         Node* p = head;
@@ -114,13 +114,14 @@ MyList::~MyList() {
 int main() {
     std::string song;
     MyList playlist;
-    int choice = 0;
-     while(choice != 4) {
-        std::cout << "\nMENU:\n1. Show the playlist\n2. Add song\n3. Remove song\n4. Exit";
-        std::cout << "\nPlease select a number: ";
+    char choice;
+    short found;
+     while(choice != 'q') {
+        std::cout << "\nMENU:\n1. (p)rint the playlist\n2. (a)dd song\n3. (r)emove song\n4. (s)earch Playlist\n5. (c)Lear Playlist\n6. (q)uit\n";
+        std::cout << "\nPlease select an option: ";
         std::cin >> choice;
         switch (choice) {
-            case 1:
+            case 'p':
                 if(playlist.isEmpty()) {
                     std::cout << "\nThere are no songs in the playlist.";
                 } 
@@ -129,15 +130,17 @@ int main() {
                     std::cout << playlist.print();
                 }
                 break;
-            case 2: 
+            case 'a': 
                 std::cout << "\n Enter the name of a song to add to the playlist:";
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, song);
-                playlist.add(song);
-                std::cout << "\nUPDATED PLAYLIST:\n";
-                std::cout << playlist.print();
+                found =playlist.add(song);
+                if(found == -1) {
+                    std::cout << "\nFailed to add song; Memory allocation error.";
+                }
+                std::cout << "\nSong added.";
                 break;
-            case 3:
+            case 'r':
                 if(playlist.isEmpty()) {
                     std::cout << "\nThere are no songs to remove";
                 }
@@ -145,22 +148,41 @@ int main() {
                     std::cout << "\n Enter the name of a song to remove: ";
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     std::getline(std::cin, song);
-                    int found = playlist.remove(song);
+                    found = playlist.remove(song);
                     if(found == -1) {
                         std::cout << "\nError: There is no song titled " << song << " in the playlist.";
                     }
                     else { 
-                        std::cout << "\nUPDATED PLAYLIST:\n";
-                        std::cout << playlist.print();
+                        std::cout << "\nSong removed.\n";
                     }
                 }
                 break;
-            case 4:
+            case 's':
+                if(playlist.isEmpty()) {
+                    std::cout << "\nThere are no songs in the playlist."; 
+                } else {
+                    std::cout << "\nEnter the name of a song to search for: ";
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::getline(std::cin, song);
+                    short found = playlist.find(song);
+                    if(found == -1) {
+                        std::cout << "\nThe song " << song << " was not found.";
+                    }
+                    else {
+                        std::cout << "\nThe song titled " << song << " was found.";
+                    }
+                }
+                break;
+            case 'c':
+                if(playlist.isEmpty()) { 
+                    std::cout << "\nThe playlist is already empty.";
+                } else {
+                    playlist.clear();
+                    std::cout << "\nPlaylist cleared.";
+                }
+                break;
+            case 'q':
                 return 0;
         }
-        if(choice < 1 || choice > 4) {
-            std::cout << "Choice must be between 1 - 4.";
-        }
     }
-   return 0;
-};
+}

@@ -96,6 +96,16 @@ void MyList::clear() {
         delete p;
     }
 }
+
+std::string MyList::print() {
+    Node* p = head;
+    std::string playlist = "";
+    while(p != nullptr) {
+        playlist = playlist + p->songTitle + "\n";
+        p = p->next;
+    }
+    return playlist;
+}
 /*
 std::string MyList::get(int songNumber) const {
     if (songNumber < 0 || songNumber >= size) {

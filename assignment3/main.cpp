@@ -58,6 +58,16 @@ short MyList::add(std::string song) {
     }
     return 0;
 }
+
+short MyList::find(std::string song) {
+    Node* p = head;
+    while(p != nullptr) {
+        if(p->songTitle == song) 
+            return 0;
+        p = p->next;
+    }
+    return -1;
+}
 /*
 std::string MyList::get(int songNumber) const {
     if (songNumber < 0 || songNumber >= size) {

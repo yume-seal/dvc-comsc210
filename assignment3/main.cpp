@@ -30,7 +30,7 @@ bool MyList::isEmpty() {
 }
 
 unsigned short MyList::getSize() {
-    int count = 0;
+    unsigned short count = 0;
     Node* temp = head;
     while(temp != nullptr) {
         temp = temp->next;
@@ -110,38 +110,10 @@ std::string MyList::print() {
 MyList::~MyList() {
     clear();
 }
-/*
-std::string MyList::get(int songNumber) const {
-    if (songNumber < 0 || songNumber >= size) {
-        return "";
-    }
-    else {
-        return playlist[songNumber];
-    }
-}
 
-int MyList::remove(std::string song) {
-    for(int i = 0; i < size; i++) {
-        if (playlist[i] == song) {
-            playlist[i] = playlist[size - 1];
-            size = size - 1;
-            return 0;
-        }
-    }
-
-    return -1;
-}
-
-MyList::~MyList() {
-    clear();
-}
-*/
 int main() {
-   /* int capacity;
     std::string song;
-    std::cout << "How many songs do you want in the playlist?(Enter an integer)";
-    std:: cin >> capacity;
-    MyList playlist(capacity);
+    MyList playlist;
     int choice = 0;
      while(choice != 4) {
         std::cout << "\nMENU:\n1. Show the playlist\n2. Add song\n3. Remove song\n4. Exit";
@@ -154,27 +126,16 @@ int main() {
                 } 
                 else {
                     std::cout << "\nPLAYLIST:\n";
-                    for(int i = 0; i < playlist.getSize(); i++)
-                    {
-                        std::cout << playlist.get(i) << "\n";
-                    }
+                    std::cout << playlist.print();
                 }
                 break;
             case 2: 
-                if(playlist.isFull()) {
-                    std::cout << "\nYou cannot add anymore songs, the playlist is full.";
-                }
-                else {
-                    std::cout << "\n Enter the name of a song to add to the playlist:";
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    std::getline(std::cin, song);
-                    playlist.add(song);
-                    std::cout << "\nUPDATED PLAYLIST:\n";
-                    for(int i = 0; i < playlist.getSize(); i++)
-                    {
-                        std::cout << playlist.get(i) << "\n";
-                    }
-                }
+                std::cout << "\n Enter the name of a song to add to the playlist:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::getline(std::cin, song);
+                playlist.add(song);
+                std::cout << "\nUPDATED PLAYLIST:\n";
+                std::cout << playlist.print();
                 break;
             case 3:
                 if(playlist.isEmpty()) {
@@ -190,9 +151,7 @@ int main() {
                     }
                     else { 
                         std::cout << "\nUPDATED PLAYLIST:\n";
-                        for(int i = 0; i < playlist.getSize(); i++) {
-                            std::cout << playlist.get(i) << "\n";
-                        }
+                        std::cout << playlist.print();
                     }
                 }
                 break;
@@ -202,6 +161,6 @@ int main() {
         if(choice < 1 || choice > 4) {
             std::cout << "Choice must be between 1 - 4.";
         }
-    }*/
+    }
    return 0;
 };

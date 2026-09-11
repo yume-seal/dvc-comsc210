@@ -134,7 +134,7 @@ int main() {
                 }
                 break;
             case 'a': 
-                std::cout << "\n Enter the name of a song to add to the playlist:";
+                std::cout << "\n Enter the name of a song to add to the playlist: ";
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, song);
                 found =playlist.add(song);
@@ -185,6 +185,7 @@ int main() {
                 }
                 break;
             case 'q':
+                playlist.~MyList();
                 return 0;
         }
     }

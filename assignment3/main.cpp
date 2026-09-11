@@ -12,7 +12,7 @@ class MyList {
     public:
         ~MyList();
         bool isEmpty();
-        short getSize();
+        unsigned short getSize();
         short add(std::string song);
         short find(std::string song);
         short remove(std::string song);
@@ -29,7 +29,7 @@ bool MyList::isEmpty() {
     }
 }
 
-short MyList::getSize() {
+unsigned short MyList::getSize() {
     int count = 0;
     Node* temp = head;
     while(temp != nullptr) {
@@ -105,6 +105,10 @@ std::string MyList::print() {
         p = p->next;
     }
     return playlist;
+}
+
+MyList::~MyList() {
+    clear();
 }
 /*
 std::string MyList::get(int songNumber) const {

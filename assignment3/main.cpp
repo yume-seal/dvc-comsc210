@@ -87,6 +87,15 @@ short MyList::remove(std::string song) {
     }
     return -1;
 }
+
+void MyList::clear() {
+    Node* p;
+    while(head != nullptr) {
+        p = head;
+        head = head->next;
+        delete p;
+    }
+}
 /*
 std::string MyList::get(int songNumber) const {
     if (songNumber < 0 || songNumber >= size) {

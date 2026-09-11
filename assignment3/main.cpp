@@ -100,11 +100,13 @@ void MyList::clear() {
 std::string MyList::print() {
     Node* p = head;
     std::string playlist = "";
+    int count = 0;
     while(p != nullptr) {
         playlist = playlist + p->songTitle + "\n";
         p = p->next;
+        count++;
     }
-    return playlist;
+    return "\nTotal songs in playlist: " + std::to_string(count) + "\n" + playlist ;
 }
 
 MyList::~MyList() {
@@ -117,13 +119,14 @@ int main() {
     char choice;
     short found;
      while(choice != 'q') {
-        std::cout << "\nMENU:\n1. (p)rint the playlist\n2. (a)dd song\n3. (r)emove song\n4. (s)earch Playlist\n5. (c)Lear Playlist\n6. (q)uit\n";
+        std::cout << "\nMENU:\n1. (p)rint the playlist\n2. (a)dd song\n3. (r)emove song\n4. (s)earch Playlist\n5. (c)lear Playlist\n6. (q)uit\n";
         std::cout << "\nPlease select an option: ";
         std::cin >> choice;
         switch (choice) {
             case 'p':
                 if(playlist.isEmpty()) {
                     std::cout << "\nThere are no songs in the playlist.";
+                    std::cout << playlist.print();
                 } 
                 else {
                     std::cout << "\nPLAYLIST:\n";

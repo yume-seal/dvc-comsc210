@@ -68,6 +68,25 @@ short MyList::find(std::string song) {
     }
     return -1;
 }
+
+short MyList::remove(std::string song) {
+    Node* p = head;
+    Node* q = nullptr;
+    while( p != nullptr && p->songTitle != song) {
+        q = p;
+        p = p->next;
+    }
+    if(p != nullptr) {
+        if(q == nullptr) {
+            head = head->next;
+        } else {
+            q->next = p->next;
+        }
+        delete p;
+        return 0;
+    }
+    return -1;
+}
 /*
 std::string MyList::get(int songNumber) const {
     if (songNumber < 0 || songNumber >= size) {

@@ -58,56 +58,72 @@ char MyStack::peek() {
     } else
         return '\0';
 }
-/*
+
 class MyQueue {
     private:
-        char* list;
-        unsigned short front;
-        unsigned short back;
-        unsigned short max;
+        struct Node {
+            char c;
+            Node* next;
+        };
+        Node* front;
+        Node* back;
+
     public:
-        MyQueue(unsigned short s);
+        MyQueue();
         ~MyQueue();
         short enqueue(char a);
         short dequeue();
         char first();
 };
 
-MyQueue::MyQueue(unsigned short s) {
-    max = s + 1;
-    front = 0;
-    back = 0;
-    list = new char[max];
+MyQueue::MyQueue() {
+    front = nullptr;
+    back = nullptr;
 }
 
 MyQueue::~MyQueue() {
-    delete[]list;
-}
-
-short MyQueue::enqueue(char a) {
-    if((back + 1) % max == front) {
-        return -1;
-    } else {
-        list[back] = a;
-        back = (back + 1) % max;
-        return 0;
+    while(front != nullptr) {
+        Node* temp = front;
+        front = front->next;
+        delete temp;
     }
 }
 
-short MyQueue::dequeue() {
-    if(front != back) {
-        front = (front + 1) % max;
-        return 0;
-    } else
+short MyQueue::enqueue(char a) {
+    Node* n = new (std::nothrow) Node;
+    if(n == nullptr) {
         return -1;
+    } else {
+        n->c = a;
+        n->next = nullptr;
+        if(front == nullptr) {
+            front = n;
+            back = n;
+        } else {
+            back->next = n;
+            back = back->next;
+        }
+    }
+    return 0;
+}
+
+short MyQueue::dequeue() {
+    if(front != nullptr) {
+        Node* temp = front;
+        front = front->next;
+        delete temp;
+        return 0;
+    }
+    back = nullptr;
+    return -1;
 }
 
 char MyQueue::first() {
-    if (front != back) {
-        return list[front];
-    } else
-        return '\0';
-}*/
+    if(front != nullptr) {
+        return front->c;
+    }
+    return '\0';
+    }
 int main() {
     return 0;
 }

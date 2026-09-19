@@ -44,9 +44,9 @@ short MyStack::push(char a) {
 
 short MyStack::pop() {
     if(top != nullptr) {
-        Node* p = top;
+        Node* temp = top;
         top = top->next;
-        delete p;
+        delete temp;
         return 0;
     } else
         return -1;
@@ -125,5 +125,31 @@ char MyQueue::first() {
     return '\0';
     }
 int main() {
+    std::string input;
+    std::cout << "Enter a string: ";
+    std::getline(std::cin, input);
+    while (!input.empty() && (input.back() == '\r' || input.back() == '\n')) {
+        input.pop_back();
+    }
+
+    MyStack stack;
+    MyQueue queue;
+    for (char c : input) {
+        stack.push(c);
+        queue.enqueue(c);
+    }
+
+    std::cout << "Stack contents: ";
+    while (stack.peek() != '\0') {
+        std::cout << stack.peek();
+        stack.pop();
+    }
+    std::cout << std::endl;
+    std::cout << "Queue contents: ";
+    while (queue.first() != '\0') {
+        std::cout << queue.first();
+        queue.dequeue();
+    }
+    std::cout << std::endl;
     return 0;
 }

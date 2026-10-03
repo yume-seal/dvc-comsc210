@@ -59,21 +59,21 @@ short MyDLL::remove(std::string song) {
     Node* p = head;
     Node*q = nullptr;
 
-    while (p != 0 && p->songTitle != song) {
+    while (p != nullptr && p->songTitle != song) {
         q = p;
         p = p->next;
     }
-    if(p == 0) {
+    if(p == nullptr) {
         return -1;
     }
     else {
-        if(q == 0) {
+        if(q == nullptr) {
             head = p->next;
         }
         else {
             q->next = p->next;
         }
-        if(p->next = 0) {
+        if(p->next == nullptr) {
             tail = q;
         }
         else {
@@ -84,7 +84,7 @@ short MyDLL::remove(std::string song) {
 }
 
 void MyDLL::clear() {
-    while(tail != 0) {
+    while(tail != nullptr) {
         Node* p = tail;
         tail = p->prev;
         delete(p);
@@ -94,11 +94,21 @@ void MyDLL::clear() {
 
 short MyDLL::find(std::string song) {
     Node* p = tail;
-    while(p != 0) {
+    while(p != nullptr) {
         if(p->songTitle == song) {
             return 0;
         }
         p = p->prev;
     } 
     return -1;
+}
+
+unsigned short MyDLL::getSize() {
+    unsigned short count = 0;
+    Node* p = head;
+    while(p != nullptr) {
+        count++;
+        p = p->next;
+    }
+    return count;
 }

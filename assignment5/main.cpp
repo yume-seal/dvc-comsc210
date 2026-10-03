@@ -129,3 +129,25 @@ std::string MyDLL::print() {
     }
     return playlist;
 }
+
+std::string MyDLL::forward() {
+    if(cur == nullptr) {
+        return "";
+    }
+    cur = cur->next;
+    if(cur == nullptr) {
+        cur = head;
+    }
+    return cur->songTitle;
+}
+
+std::string MyDLL::backward() {
+    if(cur == nullptr) {
+        return "";
+    }
+    cur = cur->prev;
+    if(cur == nullptr) {
+        cur = tail;
+    }
+    return cur->songTitle;
+}

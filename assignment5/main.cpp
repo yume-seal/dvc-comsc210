@@ -112,3 +112,20 @@ unsigned short MyDLL::getSize() {
     }
     return count;
 }
+
+std::string MyDLL::print() {
+    if(isEmpty()) {
+        return "Playlist is empty.";
+    }
+    std::string playlist = "";
+    Node* p = head;
+    while(p != nullptr) {
+        playlist = playlist + p->songTitle + "\n";
+        if(p == cur) {
+            playlist = playlist + " (NOW PLAYING)";
+        }
+        playlist = playlist + "\n";
+        p = p->next;
+    }
+    return playlist;
+}

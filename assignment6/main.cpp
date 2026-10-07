@@ -61,12 +61,17 @@ std::string MyPQueue::dequeue() {
 
 short MyPQueue::update(std::string name, unsigned short pri) {
     Node* p = head;
+    Node* current = p;
     while(p != nullptr) {
         if(p->name == name) {
             p->pri = pri;
+              if(p->pri > current->pri) {
+                p->next = current;
+            }
             return 0;
         }
         p = p->next;
+        current = p;
     }
     return -1;
 }
@@ -75,7 +80,7 @@ std::string MyPQueue::print() const {
     std::string result;
     Node* p = head;
     while(p != nullptr) {
-        result = result + p->name + " " + std::to_string(p->pri) + "\n";
+        result = result + p->name + "           " + std::to_string(p->pri) + "\n";
         p = p->next;
     }
 
@@ -128,6 +133,7 @@ int main() {
                 pq.clear();
                 break;
             case 'l':
+                std::cout << "PATIENT            PR\n";
                 std::cout << pq.print();
                 break;
             case 'n': {

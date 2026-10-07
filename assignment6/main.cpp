@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <iomanip>
+#include <sstream>
 
 class MyPQueue {
     private:
@@ -77,14 +79,18 @@ short MyPQueue::update(std::string name, unsigned short pri) {
 }
 
 std::string MyPQueue::print() const {
-    std::string result;
+    if(head == nullptr) {
+        return "";
+    }
+    std::ostringstream oss;
+    oss << std::left << std::setw(19) << "PATIENT" << std::right << std::setw(3) << "PR" << "\n";
     Node* p = head;
     while(p != nullptr) {
-        result = result + p->name + "           " + std::to_string(p->pri) + "\n";
+        oss << std::left << std::setw(19) << p->name << std::right << std::setw(3) << p->pri << "\n";
         p = p->next;
     }
 
-    return result;
+    return oss.str();
 }
 
 void MyPQueue::clear() {
@@ -133,7 +139,6 @@ int main() {
                 pq.clear();
                 break;
             case 'l':
-                std::cout << "PATIENT            PR\n";
                 std::cout << pq.print();
                 break;
             case 'n': {

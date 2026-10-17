@@ -62,20 +62,25 @@ std::string MyPQueue::dequeue() {
 }
 
 short MyPQueue::update(std::string name, unsigned short pri) {
-    Node* p = head;
-    Node* current = p;
-    while(p != nullptr) {
-        if(p->name == name) {
-            p->pri = pri;
-              if(p->pri > current->pri) {
-                p->next = current;
-            }
-            return 0;
-        }
-        p = p->next;
-        current = p;
+    Node* curr = head;
+    Node* prev = nullptr;
+    while(curr != nullptr && curr->name != name) {
+        prev = curr;
+        curr = curr->next;
     }
-    return -1;
+    if(curr == nullptr) {
+        return -1;
+    }
+    if(prev == nullptr) {
+        head = curr->next;
+    } else {
+        prev->next = curr->next;
+    }
+    delete curr;
+    if(enqueue(name, pri) == -1) {
+        return -1;
+    }
+    return 0;
 }
 
 std::string MyPQueue::print() const {

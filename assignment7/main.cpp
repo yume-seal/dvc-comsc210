@@ -76,6 +76,7 @@ class Tree {
                 clear(r->left);
                 clear(r->right);
                 delete r;
+                r = nullptr;
             }
         }
 
@@ -108,7 +109,6 @@ class Tree {
         }
         void clear() {
             clear(root);
-            root = nullptr;
         }
         short int find(std::string song) const {
             return find(root, song);
@@ -119,16 +119,63 @@ class Tree {
 };
 
 int main() {
-    Tree myTree;
-    myTree.add("Song 1");
-    myTree.add("Song 2");
-    myTree.add("Song 3");
-    if(myTree.find("Song 2") == -1) {
-        std::cout << "Song 2 not found in the tree." << std::endl;
-    } else {
-        std::cout << "Song 2 found in the tree." << std::endl;
+    std::string song;
+    Tree playlist;
+    char choice;
+    short found;
+     while(choice != 'q') {
+        std::cout << "\nMENU:\n1. (p)rint the playlist\n2. (a)dd song\n3. (r)emove song\n4. (s)earch Playlist\n5. (c)lear Playlist\n6. (q)uit\n";
+        std::cout << "\nPlease select an option: ";
+        std::cin >> choice;
+        switch (choice) {
+            case 'p':
+                std::cout << "\nPLAYLIST:\n";
+                std::cout << playlist.print();
+                std::cout << "\n" << playlist.getSize() << " total songs\n";
+                break;
+            case 'a': 
+                std::cout << "\n Enter the name of a song to add to the playlist: ";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::getline(std::cin, song);
+                found = playlist.add(song);
+                if(found == -1) {
+                    std::cout << "\nFailed to add song; Memory allocation error.";
+                } else {
+                    std::cout << "\nSong added.";
+                }
+                break;
+            case 'r':
+                std::cout << "\n Enter the name of a song to remove: ";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::getline(std::cin, song);
+                found = playlist.remove(song);
+                if(found == -1) {
+                    std::cout << "\nError: There is no song titled " << song << " in the playlist.";
+                }
+                else { 
+                    std::cout << "\nSong removed.\n";
+                }
+                break;
+            case 's':
+                 std::cout << "\nEnter the name of a song to search for: ";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::getline(std::cin, song);
+                found = playlist.find(song);
+                if(found == -1) {
+                    std::cout << "\nThe song " << song << " was not found.";                 
+                }
+                else {
+                  std::cout << "\nThe song titled " << song << " was found.";
+                }
+                break;
+            case 'c':
+                playlist.clear();
+                std::cout << "\nPlaylist cleared.";
+                std::cout << "\n" << playlist.getSize() << " total songs.\n";
+                break;
+            case 'q':
+                playlist.~Tree();
+                return 0;
+        }
     }
-    std::cout << myTree.print();
-    std::cout << "\nSize of tree: " << myTree.getSize() << std::endl;
-    myTree.clear();
 }

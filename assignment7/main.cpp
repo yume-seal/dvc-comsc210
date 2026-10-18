@@ -57,14 +57,14 @@ class Tree {
             }
         }
         
-        std::string print(Node* r) {
+        std::string print(Node* r) const {
             if(r == nullptr) {
                 return "";
             } else {
                 return print(r->left) + r->songTitle + "\n" + print(r->right);
             }
         }
-        unsigned short int getSize(Node* r) {
+        unsigned short int getSize(Node* r) const {
             if(r == nullptr) {
                 return 0; 
             } else {
@@ -76,6 +76,18 @@ class Tree {
                 clear(r->left);
                 clear(r->right);
                 delete r;
+            }
+        }
+
+        short int find(Node* r, std::string song) const {
+            if(r == nullptr) {
+                return -1;
+            } else if (song == r->songTitle) {
+                return 0;
+            } else if (song < r->songTitle) {
+                return find(r->left, song);
+            } else {
+                return find(r->right, song);
             }
         }
     public:
@@ -91,12 +103,15 @@ class Tree {
         std::string print() {
             return print(root);
         }
-        unsigned short int getSize() {
+        unsigned short int getSize() const {
             return getSize(root);
         }
         void clear() {
             clear(root);
             root = nullptr;
+        }
+        short int find(std::string song) const {
+            return find(root, song);
         }
         ~Tree() {
             clear();
@@ -108,7 +123,11 @@ int main() {
     myTree.add("Song 1");
     myTree.add("Song 2");
     myTree.add("Song 3");
-    myTree.remove("Song 2");
+    if(myTree.find("Song 2") == -1) {
+        std::cout << "Song 2 not found in the tree." << std::endl;
+    } else {
+        std::cout << "Song 2 found in the tree." << std::endl;
+    }
     std::cout << myTree.print();
     std::cout << "\nSize of tree: " << myTree.getSize() << std::endl;
     myTree.clear();

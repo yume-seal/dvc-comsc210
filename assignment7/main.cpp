@@ -71,6 +71,13 @@ class Tree {
                 return 1 + getSize(r->left) + getSize(r->right);
             }
         }
+        void clear(Node*& r) {
+            if(r != nullptr) {
+                clear(r->left);
+                clear(r->right);
+                delete r;
+            }
+        }
     public:
         Tree() {
             root = nullptr;
@@ -87,6 +94,13 @@ class Tree {
         unsigned short int getSize() {
             return getSize(root);
         }
+        void clear() {
+            clear(root);
+            root = nullptr;
+        }
+        ~Tree() {
+            clear();
+        }
 };
 
 int main() {
@@ -97,4 +111,5 @@ int main() {
     myTree.remove("Song 2");
     std::cout << myTree.print();
     std::cout << "\nSize of tree: " << myTree.getSize() << std::endl;
+    myTree.clear();
 }

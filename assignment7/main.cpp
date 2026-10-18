@@ -56,6 +56,14 @@ class Tree {
                 return 0;
             }
         }
+        
+        std::string print(Node* r) {
+            if(r == nullptr) {
+                return "";
+            } else {
+                return print(r->left) + r->songTitle + "\n" + print(r->right);
+            }
+        }
     public:
         Tree() {
             root = nullptr;
@@ -66,6 +74,9 @@ class Tree {
         short int remove(std::string song) {
             return remove(root, song);
         }
+        std::string print() {
+            return print(root);
+        }
 };
 
 int main() {
@@ -74,4 +85,5 @@ int main() {
     myTree.add("Song 2");
     myTree.add("Song 3");
     myTree.remove("Song 2");
+    std::cout << myTree.print();
 }

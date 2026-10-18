@@ -64,6 +64,13 @@ class Tree {
                 return print(r->left) + r->songTitle + "\n" + print(r->right);
             }
         }
+        unsigned short int getSize(Node* r) {
+            if(r == nullptr) {
+                return 0; 
+            } else {
+                return 1 + getSize(r->left) + getSize(r->right);
+            }
+        }
     public:
         Tree() {
             root = nullptr;
@@ -77,6 +84,9 @@ class Tree {
         std::string print() {
             return print(root);
         }
+        unsigned short int getSize() {
+            return getSize(root);
+        }
 };
 
 int main() {
@@ -86,4 +96,5 @@ int main() {
     myTree.add("Song 3");
     myTree.remove("Song 2");
     std::cout << myTree.print();
+    std::cout << "\nSize of tree: " << myTree.getSize() << std::endl;
 }
